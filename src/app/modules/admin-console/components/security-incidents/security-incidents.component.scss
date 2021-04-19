@@ -1,0 +1,319 @@
+@import "src/app/tools/styles/mixin";
+
+.security-incidents {
+  overflow: hidden;
+  &-header {
+    margin-bottom: 1.5em;
+    height: 4em;
+    @include flex-content(flex-start);
+    flex-wrap: wrap;
+  }
+  &-content {
+    @include flex-content(start, start, column);
+    height: calc(100% - 4em);
+    overflow: hidden;
+    &-count {
+      @include flex-content(start, start);
+      font-weight: bold;
+      height: 2em;
+      color: #717171;
+      font-size: 1.2em;
+      span {
+        font-size: 1.2em;
+        margin: 0 .2em;
+      }
+    }
+    &-grid {
+      height: calc(100% - 4em);
+      overflow: auto;
+      tbody {
+        display: block;
+        height: calc(100% - 3em);
+        overflow: auto;
+      }
+      thead, tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;/* even columns width , fix width of table too*/
+      }
+      thead {
+        width: 100%;
+        height: 3em;
+      }
+      table {
+        //width: 400px;
+      }
+      &-empty {
+        @include flex-content();
+        &-img {
+          width: 11em;
+          height: 11em;
+        }
+      }
+      &-data {
+        th, tr td {
+          //border-bottom: 1px solid #adadad;
+        }
+        table {
+          border-collapse: collapse;
+        }
+        &-header {
+          height: 3em;
+          background: #ececec;
+          color: #717171;
+          &-item {
+            font-weight: bold;
+            &-text {
+              @include flex-content(flex-start);
+              text-align: center;
+              width: calc(100% - 1em);
+              padding: 0 0 0 1em;
+              font-size: 1.2em;
+              cursor: pointer;
+              &-img {
+                margin-left: .7em;
+                @include flex-content();
+                img {
+                  width: .6em;
+                }
+              }
+              &-img-asc {
+                transform: rotate(180deg);
+              }
+            }
+          }
+        }
+        &-rows {
+          font-size: 1.231em;
+          //height: 3em;
+          //@include flex-content(center, center, column);
+          border-bottom: 1px solid #adadad;
+          padding: 1em 0;
+          &-item {
+            width: 100%;
+            &-cell {
+              &-text {
+                padding: 0 1em;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 9.231em;
+                white-space: nowrap;
+              }
+              &-subject {
+                @include flex-content(space-between);
+                &-text {
+                  padding: 0 1em;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  width: 28.7em;
+                  white-space: nowrap;
+                }
+                &-img {
+                  width: 1.2em;
+                  height: 1.2em;
+                }
+              }
+              &-array {
+                @include flex-content(space-between);
+                &-count {
+                  padding: 0 .2em;
+                  margin-left: 2em;
+                  background: #9c9c9c;
+                  color: white;
+                  border-radius: 5px;
+                }
+                &-text {
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  max-width: 11em;
+                  padding: 0 1em;
+                  white-space: nowrap;
+                }
+              }
+              &-date {
+                padding: 0 1em;
+              }
+              &-sorted {
+                color: black !important;
+                font-weight: bold;
+              }
+            }
+          }
+          &-itemData{
+            border-bottom: 1px solid #adadad;
+            background: #f3f3f3;
+            &-rows-item {
+              @include flex-content(flex-start, center, column);
+              padding: .5em;
+              &-top {
+                @include flex-content(space-between, flex-start);
+                margin-bottom: .5em;
+                &-left {
+                  @include flex-content(flex-start, center);
+                  &-emails {
+                    @include flex-content(flex-start, flex-start, column);
+                    width: calc(100% - 1.8em);
+                    &-top {
+                      @include flex-content(space-between, center);
+                      &-right {
+                        @include flex-content(flex-end, center);
+                        font-size: 1em;
+                        img {
+                          width: 1em !important;
+                          height: 1em !important;
+                          cursor: pointer;
+                        }
+                        .security-incidents-content-grid-data-rows-item-date-dateResponsive {
+                          padding: 0 .5em;
+                          width: max-content;
+                        }
+                      }
+                    }
+                    &-bottom {
+                      @include flex-content(flex-start, center);
+                      &-item {
+                        margin-right: 1em;
+                      }
+                    }
+                  }
+                  img {
+                    width: 1.8em;
+                    height: 1.8em;
+                  }
+                }
+              }
+              &-bottom {
+                @include flex-content(flex-start, flex-start, column);
+                &-subject {
+                  padding-left: .5em;
+                  font-size: 1em;
+                }
+                &-text {
+                  margin: 0.5em;
+                  /* margin-top: 1em; */
+                  width: calc(100% - 4em);
+                  background: white;
+                  padding: 1em;
+                }
+              }
+            }
+          }
+        }
+        &-rows:hover {
+          cursor: pointer;
+          background: #ececec;
+          color: blue !important;
+        }
+      }
+    }
+    &-gridResponsive-data {
+      overflow: hidden;
+      tr td {
+        border-bottom: 1px solid #adadad;
+        padding: .8em 0;
+        width: 100%;
+      }
+      table {
+        border-collapse: collapse;
+        overflow: hidden;
+        height: 100%;
+      }
+      &-header {
+        height: 3em;
+        background: #ececec;
+        color: #717171;
+        @include flex-content(flex-start);
+        padding: 0 1em;
+        &-item {
+          @include flex-content(flex-start);
+          &-text {
+            cursor: pointer;
+          }
+          &-sorted {
+            color: black !important;
+            font-weight: bold;
+          }
+          mat-divider {
+            height: 2em;
+            margin: 0 1em;
+          }
+          &-img {
+            margin-left: .7em;
+            @include flex-content();
+            cursor: pointer;
+            img {
+              width: .6em;
+            }
+          }
+        }
+      }
+      &-body {
+        height: calc(100% - 3em);
+        overflow: auto;
+      }
+      &-rows {
+        //height: 4em;
+        //padding: 0 1em;
+        width: 100%;
+        display: block;
+        &-item {
+          @include flex-content(center, center, column);
+          &-top {
+            @include flex-content(space-between, flex-start);
+            &-left {
+              @include flex-content(flex-start, center);
+              &-emails {
+                @include flex-content(flex-start, flex-start, column);
+                width: calc(100% - 1.8em);
+                &-top {
+                  @include flex-content(space-between, center);
+                  &-right {
+                    @include flex-content(flex-end, center);
+                    font-size: 1em;
+                    img {
+                      width: .8em !important;
+                      height: .8em !important;
+                      cursor: pointer;
+                    }
+                    .security-incidents-content-grid-data-rows-item-date-dateResponsive {
+                      padding: 0 .5em;
+                      width: max-content;
+                    }
+                  }
+                  //&-from {
+                  //  //padding: 0 1em;
+                  //}
+                  //&-form, &-to {
+                  //  font-size: 1.2em;
+                  //}
+                  //&-to {
+                  //  padding: .5em 0;
+                  //}
+                }
+              }
+              img {
+                width: 1.8em;
+                height: 1.8em;
+              }
+            }
+          }
+          &-bottom {
+            @include flex-content(flex-start, center);
+            &-subject {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 17.5em;
+              white-space: nowrap;
+              font-size: 1.3em;
+            }
+          }
+        }
+      }
+      &-rows:hover {
+        cursor: pointer;
+        background: #ececec;
+        color: blue !important;
+      }
+    }
+  }
+}

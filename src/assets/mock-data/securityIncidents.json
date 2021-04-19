@@ -1,0 +1,184 @@
+{
+  "columnDefs": [
+    {
+      "headerName": "From",
+      "field": "from",
+      "cellRef": "text"
+    },
+    {
+      "headerName": "To",
+      "field": "to",
+      "cellRef": "array"
+    },
+    {
+      "headerName": "Subject",
+      "field": "subject",
+      "cellRef": "subject"
+    },
+    {
+      "headerName": "Date",
+      "field": "date",
+      "cellRef": "date"
+    }
+  ],
+  "rowDefs": [
+    {
+      "from": "aaa.aaa@example.com",
+      "to": ["zzz.zzz@example.com"],
+      "subject": {
+        "data": "[ HR-888 ] Notice of official announcement",
+        "attachment": ""
+      },
+      "date": "4/10/2021, 2:04:12 AM"
+    },
+    {
+      "from": "bbb.bbbb@example.com",
+      "to": ["yyy@example.com"],
+      "subject": {
+        "data": "[web:333] \"Web Contact\"",
+        "attachment": ""
+      },
+      "date": "4/10/2021, 2:00:12 AM"
+    },
+    {
+      "from": "ccc.bbbb@example.com",
+      "to": ["xxx@example.com", "eeee@example.com"],
+      "subject": {
+        "data": "Happy New Year! Greetings for the New Year.",
+        "attachment": "url"
+      },
+      "date": "4/10/2021, 1:20:12 AM"
+    },
+    {
+      "from": "ccc.bbbb@example.com",
+      "to": ["xxx@example.com", "eeee@example.com"],
+      "subject": {
+        "data": "[HR-887(Revised: Office Expansion Project Team)] Notice of off, [HR-887(Revised: Office Expansion Project Team)] Notice of off",
+        "attachment": ""
+      },
+      "date": "4/07/2021, 2:04:12 AM"
+    },
+    {
+      "from": "eeee@example.com",
+      "to": ["sss@example.com", "eeee@example.com", "eeee@example.com"],
+      "subject": {
+        "data": "[Github] Logout page",
+        "attachment": ""
+      },
+      "date": "3/03/2021, 2:04:12 AM"
+    },
+    {
+      "from": "fff.ffff@example.com",
+      "to": ["fff.ffff@example.com"],
+      "subject": {
+        "data": "[dev]Postfix 3.1.12 / 3.2.9 / 3.3.4 / 3.4.5",
+        "attachment": ""
+      },
+      "date": "2/01/2021, 2:04:12 AM"
+    },
+    {
+      "from": "ggg@example.com",
+      "to": ["ppp@example.com"],
+      "subject": {
+        "data": "Re: [Github] Brush-up on loading animation",
+        "attachment": ""
+      },
+      "date": "6/17/2020, 2:04:12 AM"
+    },
+    {
+      "from": "ooo.ooo@example.com",
+      "to": ["hhh.hhh@example.com"],
+      "subject": {
+        "data": "Workplace Summary for sample, Inc.: Jun 2 - Jun 9",
+        "attachment": "url"
+      },
+      "date": "2/20/2020, 2:04:12 AM"
+    },
+    {
+      "from": "iii@example.com",
+      "to": ["nnn@example.com"],
+      "subject": {
+        "data": "I love you",
+        "attachment": "url"
+      },
+      "date": "9/15/2019, 2:04:12 AM"
+    },
+    {
+      "from": "Pablo-Diego-José-Francis@example.com",
+      "to": ["Pablo-Diego-José-Francis@example.com"],
+      "subject": {
+        "data": "[info:888] ABC EQUIPMENT COMPANY",
+        "attachment": ""
+      },
+      "date": "4/26/2019, 2:04:12 AM"
+    },
+    {
+      "from": "Pablo-Diego-José-Francis@example.com",
+      "to": ["Pablo-Diego-José-Francis@example.com"],
+      "subject": {
+        "data": "[info:888] ABC EQUIPMENT COMPANY",
+        "attachment": ""
+      },
+      "date": "3/26/2021, 2:04:12 AM"
+    },
+    {
+      "from": "iii@example.com",
+      "to": ["nnn@example.com"],
+      "subject": {
+        "data": "I love you",
+        "attachment": "url"
+      },
+      "date": "9/15/2019, 2:04:12 AM"
+    },
+    {
+      "from": "Pablo-Diego-José-Francis@example.com",
+      "to": ["Pablo-Diego-José-Francis@example.com"],
+      "subject": {
+        "data": "[info:888] ABC EQUIPMENT COMPANY",
+        "attachment": ""
+      },
+      "date": "4/26/2019, 2:04:12 AM"
+    },
+    {
+      "from": "Pablo-Diego-José-Francis@example.com",
+      "to": ["Pablo-Diego-José-Francis@example.com"],
+      "subject": {
+        "data": "[info:888] ABC EQUIPMENT COMPANY",
+        "attachment": ""
+      },
+      "date": "3/26/2021, 2:04:12 AM"
+    },
+    {
+      "from": "iii@example.com",
+      "to": ["nnn@example.com"],
+      "subject": {
+        "data": "I love you",
+        "attachment": "url"
+      },
+      "date": "9/15/2019, 2:04:12 AM"
+    },
+    {
+      "from": "Pablo-Diego-José-Francis@example.com",
+      "to": ["Pablo-Diego-José-Francis@example.com"],
+      "subject": {
+        "data": "[info:888] ABC EQUIPMENT COMPANY",
+        "attachment": ""
+      },
+      "date": "4/26/2019, 2:04:12 AM"
+    },
+    {
+      "from": "Pablo-Diego-José-Francis@example.com",
+      "to": ["Pablo-Diego-José-Francis@example.com"],
+      "subject": {
+        "data": "[info:888] ABC EQUIPMENT COMPANY",
+        "attachment": ""
+      },
+      "date": "3/26/2021, 2:04:12 AM"
+    }
+
+  ],
+  "paginationInfo": {
+    "pageSize": 10,
+    "currentPage": 1
+  }
+}

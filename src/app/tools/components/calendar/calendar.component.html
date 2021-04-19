@@ -1,0 +1,20 @@
+<div class="calendar">
+  <mat-form-field appearance="standard">
+    <div class="calendar-content height-100 width-100">
+      <div class="calendar-content-left height-100" (click)="picker.open()">
+        <img class="calendar-content-left-img margin-right-1" src="assets/svg-icons/icon_calender.svg">
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="Start date">
+          <input matEndDate formControlName="end" placeholder="End date">
+        </mat-date-range-input>
+        <span *ngIf="selectedRange && selectedRange.hasOwnProperty('startDate') && selectedRange.startDate"
+              class="material-icons calendar-content-left-clear margin-right-1"
+              (click)="emptyDate(); $event.stopPropagation()">close</span>
+      </div>
+      <div matDatepickerToggleIcon  class="calendar-content-right height-100" (click)="changeDate()">
+        <img class="calendar-content-right-img" src="assets/svg-icons/icon_search.svg">
+      </div>
+    </div>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+</div>

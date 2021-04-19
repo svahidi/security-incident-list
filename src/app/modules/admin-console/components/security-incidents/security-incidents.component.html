@@ -1,0 +1,212 @@
+<div class="security-incidents width-100 height-100">
+  <div class="security-incidents-header" [style.height]="common.webView ? '4em' : '9em'">
+    <app-calendar [style.width]="!common.webView? '99%' : '25em'" [style.margin-right]="common.webView ? '1em' : null" (dataChanged)="filterData($event)"></app-calendar>
+    <app-search  [style.width]="!common.webView? '99%' : '25em'" [data]="searchData" (dataChange)="filterDataByText($event)"></app-search>
+  </div>
+  <div class="security-incidents-content"  [style.height]="common.webView ? 'calc(100% - 4em)' : 'calc(100% - 10em)'">
+    <div class="security-incidents-content-count width-100">
+      Results: <span>{{recordsCount}}</span> mail(s)
+    </div>
+    <mat-divider  class="security-incidents-content-divider width-100"></mat-divider>
+    <div class="security-incidents-content-grid width-100">
+      <div *ngIf="recordsCount === 0"  class="security-incidents-content-grid-empty height-100 width-100">
+        <img class="security-incidents-content-grid-empty-img" src="assets/svg-icons/logo.png">
+      </div>
+      <ng-container *ngIf="recordsCount !== 0">
+        <ng-container [ngTemplateOutlet]="tableContent" *ngIf="common.webView"></ng-container>
+        <ng-container [ngTemplateOutlet]="responsiveTableContent" *ngIf="!common.webView"></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #tableContent>
+  <table style="width:100%" class="security-incidents-content-grid-data" cellspacing="0" cellpadding="0">
+    <thead>
+      <tr class="security-incidents-content-grid-data-header">
+        <ng-container *ngFor="let col of data.columnDefs">
+          <th class="security-incidents-content-grid-data-header-item"
+              [style.min-width]="col.field === 'date' ? '15%' : col.field === 'subject' ? '45%' : col.field === 'to' ? '25%' : '15%'"
+              [style.max-width]="col.field === 'date' ? '15%' : col.field === 'subject' ? '45%' : col.field === 'to' ? '25%' : '15%'"
+              [style.width]="col.field === 'date' ? '15%' : col.field === 'subject' ? '45%' : col.field === 'to' ? '25%' : '15%'">
+            <div class="security-incidents-content-grid-data-header-item-text height-100" (click)="sortData(col)">
+              <span [class.security-incidents-content-gridResponsive-data-header-item-sorted]="col.sorted">{{col.headerName}}</span>
+              <span class="security-incidents-content-grid-data-header-item-text-img"
+                    [class.security-incidents-content-grid-data-header-item-text-img-asc]="col?.ascending">
+                <img src="assets/svg-icons/icon_arrow01.svg" *ngIf="col?.sorted">
+              </span>
+            </div>
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let row of rows">
+      <tr class="security-incidents-content-grid-data-rows"
+          [style.border-bottom]="row.ShowMore ? '1px solid #f3f3f3' : '1px solid #adadad'"
+          [style.background]="row.ShowMore ? '#dcdcdc' : ''"
+          [style.color]="row.ShowMore ? '#5a5a5a' : ''"
+          (click)="rowClicked(row)">
+          <td class="security-incidents-content-grid-data-rows-item-cell" *ngFor="let col of data.columnDefs"
+              [style.min-width]="col.field === 'date' ? '15%' : col.field === 'subject' ? '45%' : col.field === 'to' ? '25%' : '15%'"
+              [style.max-width]="col.field === 'date' ? '15%' : col.field === 'subject' ? '45%' : col.field === 'to' ? '25%' : '15%'"
+              [style.width]="col.field === 'date' ? '15%' : col.field === 'subject' ? '45%' : col.field === 'to' ? '25%' : '15%'">
+            <ng-container [ngSwitch]="col.cellRef">
+              <ng-container *ngSwitchCase="'text'" [ngTemplateOutlet]="textCellRender" [ngTemplateOutletContext]="{row: row, col: col}"></ng-container>
+              <ng-container *ngSwitchCase="'subject'" [ngTemplateOutlet]="subjectCellRender" [ngTemplateOutletContext]="{row: row, col: col}"></ng-container>
+              <ng-container *ngSwitchCase="'array'" [ngTemplateOutlet]="arrayCellRender" [ngTemplateOutletContext]="{row: row, col: col}"></ng-container>
+              <ng-container *ngSwitchCase="'date'" [ngTemplateOutlet]="dateCellRender" [ngTemplateOutletContext]="{row: row, col: col}"></ng-container>
+            </ng-container>
+          </td>
+
+      </tr>
+      <tr class="security-incidents-content-grid-data-rows-itemData" *ngIf="row.ShowMore">
+        <ng-container [ngTemplateOutlet]="showMoreRef" [ngTemplateOutletContext]="{row: row, col: data.columnDefs}">
+        </ng-container>
+      </tr>
+    </ng-container>
+
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #textCellRender let-col="col" let-row="row">
+  <div class="security-incidents-content-grid-data-rows-item-cell-text"
+       [matTooltipDisabled]="!row[col.field] || row[col.field].length < 16"
+       [matTooltip]="row[col.field]"
+       [innerHTML]="row[col.field] | highlight: searchData">
+  </div>
+</ng-template>
+
+<ng-template #subjectCellRender let-col="col" let-row="row">
+  <div class="security-incidents-content-grid-data-rows-item-cell-subject">
+    <div class="security-incidents-content-grid-data-rows-item-cell-subject-text"
+         [matTooltipDisabled]="!row[col.field].data || row[col.field].data.length < 60"
+         [matTooltip]="row[col.field].data"
+         [innerHTML]="row[col.field].data | highlight: searchData">
+<!--      {{row[col.field].data}}-->
+    </div>
+    <div class="security-incidents-content-grid-data-rows-item-cell-subject-img" *ngIf="row[col.field] && row[col.field].attachment">
+      <img src="assets/svg-icons/icon_clip.svg">
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #arrayCellRender let-col="col" let-row="row">
+  <div class="security-incidents-content-grid-data-rows-item-cell-array">
+    <div class="security-incidents-content-grid-data-rows-item-cell-array-text"
+         [style.padding]="!common.webView ? '0em' : '0 1em'"
+         [matTooltipDisabled]="!row[col.field] || !row[col.field][0] || row[col.field][0].length < 20"
+         [matTooltip]="row[col.field][0]"
+         [innerHTML]="row[col.field][0] | highlight: searchData">
+      <ng-container *ngIf="row[col.field] && row[col.field].length > 1">, ...</ng-container>
+    </div>
+    <div class="security-incidents-content-grid-data-rows-item-cell-array-count"
+         matTooltipClass="security-incidents-content-grid-data-rows-item-cell-array-count-others"
+         [matTooltip]="getEmailsTooltip(row[col.field])"
+         *ngIf="row[col.field] && row[col.field].length > 1">+{{row[col.field].length - 1}}
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #dateCellRender let-col="col" let-row="row">
+  <div class="security-incidents-content-grid-data-rows-item-cell-date"
+       [style.font-weight]="checkSorting('date') ? 'bold' : 'normal'"
+       [class.security-incidents-content-grid-data-rows-item-cell-date-dateResponsive]="!common.webView"> {{row[col.field] | convertor}}</div>
+</ng-template>
+
+<ng-template #responsiveTableContent>
+  <table class="security-incidents-content-gridResponsive-data width-100 height-100" cellspacing="0" cellpadding="0">
+    <tr class="security-incidents-content-gridResponsive-data-header">
+     <th class="security-incidents-content-gridResponsive-data-header-item">
+       <ng-container *ngFor="let col of data.columnDefs; let i = index">
+         <span class="security-incidents-content-gridResponsive-data-header-item-text"
+               [class.security-incidents-content-gridResponsive-data-header-item-sorted]="col.sorted"
+               (click)=" sortData(col)">{{col.headerName}}</span>
+         <span class="security-incidents-content-gridResponsive-data-header-item-img"
+               [class.security-incidents-content-grid-data-header-item-text-img-asc]="col?.ascending" (click)=" sortData(col)">
+           <img src="assets/svg-icons/icon_arrow01.svg" *ngIf="col?.sorted">
+         </span>
+         <mat-divider *ngIf="data.columnDefs && i + 1 !== data.columnDefs.length" [vertical]="true"></mat-divider>
+       </ng-container>
+     </th>
+    </tr>
+    <div class="security-incidents-content-gridResponsive-data-body">
+      <tr class="security-incidents-content-gridResponsive-data-rows" *ngFor="let row of rows">
+      <td class="security-incidents-content-gridResponsive-data-rows-item width-100 height-100">
+        <div class="security-incidents-content-gridResponsive-data-rows-item-top width-100">
+          <div class="security-incidents-content-gridResponsive-data-rows-item-top-left width-100">
+            <img src="assets/svg-icons/icon_mail_sp.svg">
+            <div class="security-incidents-content-gridResponsive-data-rows-item-top-left-emails width-100">
+              <div class="security-incidents-content-gridResponsive-data-rows-item-top-left-emails-top width-100">
+                <div class="security-incidents-content-gridResponsive-data-rows-item-top-left-emails-top-from"
+                     [style.font-weight]="checkSorting('from') ? 'bold' : 'normal'" [innerHTML]="row.from | highlight: searchData">
+                </div>
+                <div class="security-incidents-content-gridResponsive-data-rows-item-top-left-emails-top-right">
+                  <img src="assets/svg-icons/icon_clip.svg">
+                  <div>
+                    <ng-container [ngTemplateOutlet]="dateCellRender" [ngTemplateOutletContext]="{row: row, col: {field: 'date'}}"></ng-container>
+                  </div>
+                  <img src="assets/svg-icons/icon_arrow02.svg">
+                </div>
+              </div>
+              <div>
+                <ng-container [ngTemplateOutlet]="arrayCellRender" [ngTemplateOutletContext]="{row: row, col: {field: 'to'}}"></ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="security-incidents-content-gridResponsive-data-rows-item-bottom width-100">
+          <div class="security-incidents-content-gridResponsive-data-rows-item-bottom-subject"
+               [matTooltipDisabled]="!row.subject.data || row.subject.data.length < 30"
+               [matTooltip]="row.subject.data"
+               [style.font-weight]="checkSorting('subject') ? 'bold' : 'normal'"
+               [innerHTML]="row.subject.data | highlight: searchData">
+          </div>
+        </div>
+      </td>
+    </tr>
+    </div>
+  </table>
+</ng-template>
+
+<ng-template #showMoreRef let-col="col" let-row="row">
+  <div style="min-height: 7em">
+    <td class="security-incidents-content-grid-data-rows-itemData-rows-item width-100 height-100">
+      <div class="security-incidents-content-grid-data-rows-itemData-rows-item-top width-100">
+        <div class="security-incidents-content-grid-data-rows-itemData-rows-item-top-left width-100">
+          <img src="assets/svg-icons/icon_mail_sp.svg">
+          <div class="security-incidents-content-grid-data-rows-itemData-rows-item-top-left-emails width-100">
+            <div class="security-incidents-content-grid-data-rows-itemData-rows-item-top-left-emails-top width-100">
+              <div class="security-incidents-content-grid-data-rows-itemData-rows-item-top-left-emails-top-from"
+                   [style.font-weight]="checkSorting('from') ? 'bold' : 'normal'"
+                   [innerHTML]="row.from | highlight: searchData">
+              </div>
+              <div class="security-incidents-content-grid-data-rows-itemData-rows-item-top-left-emails-top-right">
+                <img src="assets/svg-icons/icon_clip.svg">
+                <div>
+                  <ng-container [ngTemplateOutlet]="dateCellRender" [ngTemplateOutletContext]="{row: row, col: {field: 'date'}}"></ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="security-incidents-content-grid-data-rows-itemData-rows-item-top-left-emails-bottom">
+              <div  class="security-incidents-content-grid-data-rows-itemData-rows-item-top-left-emails-bottom-item"
+                    *ngFor="let item of row['to']; let last = last" [innerHTML]="item | highlight: searchData">{{item}} <span *ngIf="!last">, </span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="security-incidents-content-grid-data-rows-itemData-rows-item-bottom width-100">
+        <div class="security-incidents-content-grid-data-rows-itemData-rows-item-bottom-subject"
+             [matTooltipDisabled]="!row.subject.data || row.subject.data.length < 30"
+             [matTooltip]="row.subject.data"
+             [style.font-weight]="checkSorting('subject') ? 'bold' : 'normal'"  [innerHTML]="row.subject.data | highlight: searchData">
+        </div>
+        <p class="security-incidents-content-grid-data-rows-itemData-rows-item-bottom-text" [innerText]="'Dear HENNGE-san\n\n'+
+'Hope everything is going wel with you. \n This is only a sample text as email content. \n\n Regards, \n Samira'">
+        </p>
+      </div>
+    </td>
+  </div>
+</ng-template>

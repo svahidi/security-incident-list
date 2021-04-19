@@ -1,0 +1,10 @@
+<div class="search">
+  <mat-form-field appearance="standard">
+    <div class="search-content height-100">
+      <input class="height-100" matInput placeholder="Search text..." [(ngModel)]="data" (ngModelChange)="dataChange.emit(data)">
+      <span *ngIf="data"
+            class="material-icons search-content-clear margin-right-1"
+            (click)="emptyDate(); $event.stopPropagation()">close</span>
+    </div>
+  </mat-form-field>
+</div>
