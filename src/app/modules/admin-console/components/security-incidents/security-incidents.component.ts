@@ -28,7 +28,6 @@ export class SecurityIncidentsComponent implements OnInit {
     const req = this.api.getInfo().admin.securityIncident;
     req.body = {};
     this.api.callApi(req, false).subscribe((res: any) => {
-      console.log('res>>>>>>>>>>>>', res);
       this.data = res;
       this.cloneFullData();
       if (this.data && this.data.rowDefs) {
@@ -95,7 +94,6 @@ export class SecurityIncidentsComponent implements OnInit {
 
   rowClicked(row) {
     row.ShowMore = row.hasOwnProperty('ShowMore') ? !row.ShowMore : true;
-    console.log('.........', row.ShowMore);
   }
 
 }

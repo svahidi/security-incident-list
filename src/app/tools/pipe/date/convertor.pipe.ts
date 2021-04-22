@@ -5,21 +5,20 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ConvertorPipe implements PipeTransform {
   month = [
-    {text: 'January', value: 1},
-    {text: 'February', value: 2},
-    {text: 'March', value: 3},
-    {text: 'April', value: 4},
+    {text: 'Jan', value: 1},
+    {text: 'Feb', value: 2},
+    {text: 'Mar', value: 3},
+    {text: 'Apr', value: 4},
     {text: 'May', value: 5},
-    {text: 'June', value: 6},
-    {text: 'July', value: 7},
-    {text: 'August', value: 8},
-    {text: 'September', value: 9},
-    {text: 'October', value: 10},
-    {text: 'November', value: 11},
-    {text: 'December', value: 12}
-    ];
+    {text: 'Jun', value: 6},
+    {text: 'Jul', value: 7},
+    {text: 'Aug', value: 8},
+    {text: 'Sep', value: 9},
+    {text: 'Oct', value: 10},
+    {text: 'Nov', value: 11},
+    {text: 'Dec', value: 12}
+  ];
   transform(value: any, ...args: any[]): any {
-
     const today = new Date();
     const todayData: any = {year: today.getFullYear(), month: today.getMonth(), day: today.getDate(), hour: today.getHours(), minute: today.getMinutes()};
     const valueDate = new Date(value);
@@ -31,7 +30,6 @@ export class ConvertorPipe implements PipeTransform {
     } else {
       return new Date(value).toISOString().slice(0, 10).split('-').join('/');
     }
-    console.log('>>>>>>>>>', value, args);
   }
 
 }

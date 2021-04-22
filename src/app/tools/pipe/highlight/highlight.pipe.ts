@@ -11,9 +11,7 @@ export class HighlightPipe implements PipeTransform {
   }
 
   transform(value: string, search: string): unknown {
-    console.log(';;;;;;', this.el, value);
     if (!value) return;
-    // console.log('pipe', value)
     const re = new RegExp(search, 'gi');
     const match = value.match(re);
     if (!match || match.some(x => !x)) {

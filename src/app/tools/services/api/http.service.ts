@@ -36,6 +36,7 @@ export class HttpService {
       return {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
+          // 'authorization': 'Basic c192YWhpZGlAb3V0bG9vay5jb206MDQzMTMxNjI3OA=='
         })
       };
     }
@@ -58,7 +59,6 @@ export class HttpService {
   }
 
   private extractData(data) {
-    console.log('exportData', data);
     if (data.statusCode === 200) {
       return data || {};
     } else {
@@ -68,11 +68,9 @@ export class HttpService {
   }
 
   private postMethod(path, setToken, returnError) {
-    console.log('path in post', this.url, path);
     return new Observable(res => {
       this.http.post<any>(this.url, path.body, {headers: this.setHeader(setToken).headers})
         .subscribe(data => {
-          console.log('return data service in post', data);
           res.next(this.extractData(data));
         }, (err: HttpErrorResponse) => {
           this.errorHandling(err);
@@ -88,14 +86,11 @@ export class HttpService {
     if (path.body) {
       path.body = this.makeQueryString(path.body);
     }
-    console.log('path in get', this.url, path);
     return new Observable(res => {
       this.http.get<any>(this.url, {params: path.body, headers: this.setHeader(setToken).headers})
         .subscribe(data => {
-          console.log('return data service in get', data);
           res.next(data);
         }, (err: HttpErrorResponse) => {
-          console.log('*******rrrrr********', err);
           this.errorHandling(err);
           if (returnError) {
             res.next(false);
@@ -109,7 +104,6 @@ export class HttpService {
       alert('there is not set any Address for API');
     }
     if (path && path.url) {
-      console.log('made url---->', `${this.serverHost}:${this.serverPort}/${path.url}`);
       return `${this.serverHost}:${this.serverPort}/${path.url}`;
     }
   }
@@ -127,12 +121,9 @@ export class HttpService {
     // this.loginState.showSpinner(false);**
     if (err.error instanceof Error) {
       // A client-side or network error occurred.
-      console.log('An error occurred:', err.error.message);
       // this.messageBox.error('client side error: ' + err.error.message);
     } else {
       // Backend returns unsuccessful response codes such as 404, 500 etc.
-      console.log('Backend returned status code: ', err.status);
-      console.log('Response body:', err.error);
       if (err && err.error &&
         ((err.error.code === -4 || err.error.code === -5 || err.error.code === -6) ||
           (err.error.hasOwnProperty('errors') && err.error.errors && err.error.errors.length))) {
@@ -152,18 +143,15 @@ export class HttpService {
   }
 
   private getFromJson(path) {
-    console.log('path', path);
     return new Observable(res => {
       this.http.get<any>(this.url, {params: path.body})
         .subscribe(data => {
-          console.log('*************** getFromJson', path.body, data);
           const newData = JSON.parse(JSON.stringify(data));
           if (path.body) {
             newData.paginationInfo.currentPage = path.body.currentPage - 1;
           }
           res.next(newData);
         }, (err: HttpErrorResponse) => {
-          console.log('*******rrrrr********', err);
           this.errorHandling(err);
         });
     });

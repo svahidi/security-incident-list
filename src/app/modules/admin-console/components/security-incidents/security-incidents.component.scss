@@ -9,11 +9,11 @@
     flex-wrap: wrap;
   }
   &-content {
-    @include flex-content(start, start, column);
+    @include flex-content(flex-start, flex-start, column);
     height: calc(100% - 4em);
     overflow: hidden;
     &-count {
-      @include flex-content(start, start);
+      @include flex-content(flex-start, flex-start);
       font-weight: bold;
       height: 2em;
       color: #717171;
@@ -122,13 +122,17 @@
                   color: white;
                   border-radius: 5px;
                 }
-                &-text {
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  max-width: 11em;
-                  padding: 0 1em;
-                  white-space: nowrap;
+                &-to {
+                  @include flex-content(flex-start);
+                  &-text {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 11em;
+                    padding: 0 0 0 1em;
+                    white-space: nowrap;
+                  }
                 }
+
               }
               &-date {
                 padding: 0 1em;
@@ -149,10 +153,10 @@
                 @include flex-content(space-between, flex-start);
                 margin-bottom: .5em;
                 &-left {
-                  @include flex-content(flex-start, center);
+                  @include flex-content(flex-start, flex-start);
                   &-emails {
                     @include flex-content(flex-start, flex-start, column);
-                    width: calc(100% - 1.8em);
+                    width: calc(100% - 3em);
                     &-top {
                       @include flex-content(space-between, center);
                       &-right {
@@ -168,10 +172,17 @@
                           width: max-content;
                         }
                       }
+                      &-from {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 14em;
+                        white-space: nowrap;
+                      }
                     }
                     &-bottom {
                       @include flex-content(flex-start, center);
-                      &-item {
+                      flex-wrap: wrap;
+                      span {
                         margin-right: 1em;
                       }
                     }
@@ -179,6 +190,7 @@
                   img {
                     width: 1.8em;
                     height: 1.8em;
+                    margin-top: .6em;
                   }
                 }
               }
@@ -187,6 +199,7 @@
                 &-subject {
                   padding-left: .5em;
                   font-size: 1em;
+                  width: calc(100% - 2em);
                 }
                 &-text {
                   margin: 0.5em;
@@ -202,6 +215,7 @@
         &-rows:hover {
           cursor: pointer;
           background: #ececec;
+          fill: blue !important;
           color: blue !important;
         }
       }
@@ -250,6 +264,15 @@
       &-body {
         height: calc(100% - 3em);
         overflow: auto;
+        tr {
+          width: 100%;
+          display: block;
+        }
+      }
+      &-rowData {
+        border-bottom: 1px solid #adadad;
+        background: #f3f3f3;
+        width: 100%;
       }
       &-rows {
         //height: 4em;
@@ -267,22 +290,28 @@
                 width: calc(100% - 1.8em);
                 &-top {
                   @include flex-content(space-between, center);
+                  height: 1em;
                   &-right {
                     @include flex-content(flex-end, center);
                     font-size: 1em;
+                    //fill: black;
+                    //color: black;
                     img {
                       width: .8em !important;
                       height: .8em !important;
                       cursor: pointer;
                     }
                     .security-incidents-content-grid-data-rows-item-date-dateResponsive {
-                      padding: 0 .5em;
+                      padding: 0 .5em !important;
                       width: max-content;
                     }
                   }
-                  //&-from {
-                  //  //padding: 0 1em;
-                  //}
+                  &-from {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 15em;
+                    white-space: nowrap;
+                  }
                   //&-form, &-to {
                   //  font-size: 1.2em;
                   //}
@@ -299,6 +328,7 @@
           }
           &-bottom {
             @include flex-content(flex-start, center);
+            width: calc(100% - 1em);
             &-subject {
               overflow: hidden;
               text-overflow: ellipsis;
@@ -312,8 +342,17 @@
       &-rows:hover {
         cursor: pointer;
         background: #ececec;
+        fill: blue !important;
         color: blue !important;
+        &-item-top-left-emails-top-right {
+          fill: blue !important;
+          color: blue !important;
+        }
       }
     }
   }
+}
+.mobile-view-attachment {
+  width: .7em !important;
+  height: .7em !important;
 }

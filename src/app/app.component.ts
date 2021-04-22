@@ -10,13 +10,12 @@ export class AppComponent {
   title = 'HENNGE-CHALLENGE';
 
   constructor(
-    public common: CommonService
+    public common: CommonService,
   ) {
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event): void {
     this.common.webView = window.innerWidth > 800;
-    console.log(this.common.webView);
   }
 }
