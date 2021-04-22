@@ -1,6 +1,6 @@
 # HENNGECHALLENGE
 
-##[Live Demo](https://henngechallenge.web.app/)
+## [Live Demo](https://henngechallenge.web.app/)
 
 ------------------------
 
@@ -8,7 +8,7 @@
 
 -------------------
 
-###Technologies which i used:
+### Technologies which i used:
 
 | Name                                                                                       | Version  |
 |--------------------------------------------------------------------------------------------|----------|
@@ -18,7 +18,7 @@
 
 The project was generated with  version 11.2.8.
 
-##My process:
+## My process:
 1. create project based on Angular
 2. design the architecture of project(like modules & services & components)
 3. create one assets folder for common Json & image files.
