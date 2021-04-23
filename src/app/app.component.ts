@@ -25,6 +25,6 @@ export class AppComponent {
   }
 
   detectSize() {
-    this.common.webView = window.innerWidth > 800;
+    this.common.webView = window.innerWidth > 1024;
   }
 }

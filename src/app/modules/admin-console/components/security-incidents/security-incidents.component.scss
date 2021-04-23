@@ -25,11 +25,14 @@
     }
     &-grid {
       height: calc(100% - 4em);
+      //overflow-x: hidden;
+      width: 100%;
       overflow: auto;
       tbody {
         display: block;
         height: calc(100% - 3em);
         overflow: auto;
+        width: 100%;
       }
       thead, tbody tr {
         display: table;
@@ -190,7 +193,7 @@
                   img {
                     width: 1.8em;
                     height: 1.8em;
-                    margin-top: .6em;
+                    margin-top: .5em;
                   }
                 }
               }
@@ -312,12 +315,6 @@
                     max-width: 15em;
                     white-space: nowrap;
                   }
-                  //&-form, &-to {
-                  //  font-size: 1.2em;
-                  //}
-                  //&-to {
-                  //  padding: .5em 0;
-                  //}
                 }
               }
               img {
@@ -355,4 +352,47 @@
 .mobile-view-attachment {
   width: .7em !important;
   height: .7em !important;
+}
+tbody {
+  overflow-y: scroll !important;
+}
+@media screen and (max-width: 1024px) {
+  .security-incidents-content-grid-data-rows-itemData-rows-item-bottom-text {
+    width: calc(100% - 3.2em) !important;
+  }
+}
+@media screen and (width: 411px) {
+  .security-incidents-content-gridResponsive-data-header {
+    width: calc(100% - 2em) !important;
+  }
+  .security-incidents-content-gridResponsive-data-body {
+    width: 100% !important;
+  }
+}
+@media screen and (width: 414px) {
+  .security-incidents-content-gridResponsive-data-header {
+    width: calc(100% - 2em) !important;
+  }
+  .security-incidents-content-gridResponsive-data-body {
+    width: 100% !important;
+  }
+}
+@media screen and (width: 768px) {
+  .security-incidents-content-gridResponsive-data-header {
+    width: 100% !important;
+  }
+  .security-incidents-content-gridResponsive-data-body {
+    width: 100% !important;
+  }
+}
+@media screen and (width: 1024px) {
+  .security-incidents {
+    font-size: 1.5em;
+  }
+  .security-incidents-content-gridResponsive-data-header {
+    width: 100% !important;
+  }
+  .security-incidents-content-gridResponsive-data-body {
+    width: 100% !important;
+  }
 }
