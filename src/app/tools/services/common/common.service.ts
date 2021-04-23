@@ -5,6 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class CommonService {
 
-  public webView = true;
+  public webView = null;
   constructor() { }
 }

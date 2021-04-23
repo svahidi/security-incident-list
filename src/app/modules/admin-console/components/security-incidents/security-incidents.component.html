@@ -1,4 +1,4 @@
-<div class="security-incidents width-100 height-100">
+<div class="security-incidents width-100 height-100" *ngIf="common.webView !== null">
   <div class="security-incidents-header" [style.height]="common.webView ? '4em' : '9em'">
     <app-calendar [style.width]="!common.webView? '99%' : '25em'" [style.margin-right]="common.webView ? '1em' : null" (dataChanged)="filterData($event)"></app-calendar>
     <app-search  [style.width]="!common.webView? '99%' : '25em'" [data]="searchData" (dataChange)="filterDataByText($event)"></app-search>
@@ -75,6 +75,7 @@
   <div class="security-incidents-content-grid-data-rows-item-cell-text"
        [matTooltipDisabled]="!row[col.field] || row[col.field].length < 16"
        [matTooltip]="row[col.field]"
+       [style.font-weight]="checkSorting('from') ? 'bold' : 'normal'"
        [innerHTML]="row[col.field] | highlight: searchData">
   </div>
 </ng-template>
@@ -84,6 +85,7 @@
     <div class="security-incidents-content-grid-data-rows-item-cell-subject-text"
          [matTooltipDisabled]="!row[col.field].data || row[col.field].data.length < 60"
          [matTooltip]="row[col.field].data"
+         [style.font-weight]="checkSorting('subject') ? 'bold' : 'normal'"
          [innerHTML]="row[col.field].data | highlight: searchData">
     </div>
     <div class="security-incidents-content-grid-data-rows-item-cell-subject-img" *ngIf="row[col.field] && row[col.field].attachment">
@@ -99,6 +101,7 @@
            [style.padding]="!common.webView ? '0em' : '0 0 0 1em'"
            [matTooltipDisabled]="!row[col.field] || !row[col.field][0] || row[col.field][0].length < 20"
            [matTooltip]="row[col.field][0]"
+           [style.font-weight]="checkSorting('to') ? 'bold' : 'normal'"
            [innerHTML]="row[col.field][0] | highlight: searchData">
       </div>
       <span *ngIf="row[col.field] && row[col.field].length > 1">, ...</span>
@@ -147,7 +150,8 @@
                 <div class="security-incidents-content-gridResponsive-data-rows-item-top-left-emails width-100">
                   <div class="security-incidents-content-gridResponsive-data-rows-item-top-left-emails-top width-100">
                     <div class="security-incidents-content-gridResponsive-data-rows-item-top-left-emails-top-from"
-                         [style.font-weight]="checkSorting('from') ? 'bold' : 'normal'" [innerHTML]="row.from | highlight: searchData">
+                         [style.font-weight]="checkSorting('from') ? 'bold' : 'normal'"
+                         [innerHTML]="row.from | highlight: searchData">
                     </div>
                     <div class="security-incidents-content-gridResponsive-data-rows-item-top-left-emails-top-right">
                       <ng-container *ngIf="row.subject && row.subject.attachment">
@@ -206,6 +210,7 @@
             <div class="security-incidents-content-grid-data-rows-itemData-rows-item-top-left-emails-bottom">
               <ng-container *ngFor="let item of row['to']; let last = last" >
                 <div  class="security-incidents-content-grid-data-rows-itemData-rows-item-top-left-emails-bottom-item"
+                      [style.font-weight]="checkSorting('to') ? 'bold' : 'normal'"
                       [innerHTML]="item | highlight: searchData"></div>
                 <span *ngIf="!last">, </span>
               </ng-container>

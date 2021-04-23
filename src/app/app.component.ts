@@ -16,6 +16,15 @@ export class AppComponent {
 
   @HostListener('window:resize', ['$event'])
   onResize(event): void {
+    this.detectSize();
+  }
+
+  @HostListener('window:load', ['$event'])
+  onLoad(event): void {
+    this.detectSize();
+  }
+
+  detectSize() {
     this.common.webView = window.innerWidth > 800;
   }
 }
